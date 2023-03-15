@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {setAction} from '../redux/actions';
-import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../utils/hooks';
 
 export const DetailsScreen = (): JSX.Element => {
   type NavigationParam = {
