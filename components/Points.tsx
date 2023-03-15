@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import {formatPoints} from '../utils/common';
 import {COLORS, PossibleMonths} from '../utils/constants';
 import {CustomText} from './CustomText';
+import {Card} from 'react-native-shadow-cards';
 
 interface ComponentData {
   month: PossibleMonths;
@@ -12,7 +13,8 @@ interface ComponentData {
 
 export const Points = ({month, points}: ComponentData): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <Card style={styles.Block}>
+      {/* <View style={styles.Element}> */}
       <CustomText
         content={month}
         size={16}
@@ -33,12 +35,25 @@ export const Points = ({month, points}: ComponentData): JSX.Element => {
         alignSelf="center"
         position="absolute"
       />
-    </View>
+      {/* </View> */}
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  Block: {
+    backgroundColor: COLORS.BLUE,
+    height: 143,
+    width: 286,
+    shadowColor: 'black',
+    elevation: 12,
+    borderRadius: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  Element: {
     backgroundColor: COLORS.BLUE,
     height: 143,
     width: 286,
@@ -46,7 +61,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-    shadowOffset: {width: 10, height: 10},
   },
 });

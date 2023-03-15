@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Button, Text, View} from 'react-native';
 import {Bienvenido} from '../components/Bienvenido';
 import {CustomText} from '../components/CustomText';
 import {Points} from '../components/Points';
 import {getProducts} from '../services/Products';
 import {COLORS} from '../utils/constants';
+import {Card} from 'react-native-shadow-cards';
 
 export const HomeScreen = (): JSX.Element => {
   const [products, setProducts] = useState([
