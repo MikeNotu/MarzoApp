@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import {Bienvenido} from '../components/Bienvenido';
 import {CustomText} from '../components/CustomText';
+import { Movimientos } from '../components/Movimientos';
 import {Points} from '../components/Points';
 import {getProducts} from '../services/Products';
 import {COLORS} from '../utils/constants';
-import {Card} from 'react-native-shadow-cards';
 
 export const HomeScreen = (): JSX.Element => {
   const [products, setProducts] = useState([
@@ -55,6 +55,15 @@ export const HomeScreen = (): JSX.Element => {
         marginLeft={20}
       />
       <Points month={'Diciembre'} points={totalPoints} />
+      <CustomText
+        content={'TUS MOVIMIENTOS'}
+        size={14}
+        weight={'800'}
+        color={COLORS.GRAY}
+        marginTop={20}
+        marginLeft={20}
+      />
+      <Movimientos/>
     </View>
   );
 };
