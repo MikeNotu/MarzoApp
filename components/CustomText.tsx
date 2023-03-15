@@ -11,6 +11,23 @@ interface ComponentText {
   marginBottom?: number;
   marginLeft?: number;
   marginRight?: number;
+  top?: number | 'auto';
+  display?: string;
+  position?: 'relative' | 'absolute';
+  alignSelf?:
+    | 'auto'
+    | 'baseline'
+    | 'center'
+    | 'flex-start'
+    | 'flex-end'
+    | 'stretch';
+  justifyContent?:
+    | 'center'
+    | 'flex-end'
+    | 'flex-start'
+    | 'space-around'
+    | 'space-between'
+    | 'space-evenly';
 }
 
 export const CustomText = ({
@@ -22,6 +39,10 @@ export const CustomText = ({
   marginBottom,
   marginLeft,
   marginRight,
+  position,
+  alignSelf,
+  justifyContent,
+  top,
 }: ComponentText): JSX.Element => {
   const styles = StyleSheet.create({
     customFont: {
@@ -33,6 +54,11 @@ export const CustomText = ({
       marginBottom: marginBottom !== undefined ? marginBottom : 0,
       marginLeft: marginLeft !== undefined ? marginLeft : 0,
       marginRight: marginRight !== undefined ? marginRight : 0,
+      position: position,
+      alignSelf: alignSelf !== undefined ? alignSelf : 'auto',
+      justifyContent:
+        justifyContent !== undefined ? justifyContent : 'flex-start',
+      top: top !== undefined ? top : 'auto',
     },
   });
 
