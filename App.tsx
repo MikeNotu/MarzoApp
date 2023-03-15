@@ -2,8 +2,10 @@ import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen} from './Screens/HomeScreen';
-import {AboutScreen} from './Screens/AboutScreen';
+import {HomeScreen} from './screens/HomeScreen';
+import {AboutScreen} from './screens/AboutScreen';
+import {Provider} from 'react-redux';
+import {Store} from './redux/store';
 
 function App(): JSX.Element {
   type RootStackParamList = {
@@ -14,15 +16,17 @@ function App(): JSX.Element {
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

@@ -1,4 +1,4 @@
-import {BASE_URL} from '../Utils/constants';
+import {BASE_URL} from '../utils/constants';
 
 export const getProducts = async () => {
   try {
