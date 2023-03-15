@@ -13,7 +13,7 @@ export const HomeScreen = (): JSX.Element => {
       createdAt: '',
       product: '',
       points: 0,
-      image: 'String',
+      image: '',
       is_redemption: false,
       id: 0,
     },

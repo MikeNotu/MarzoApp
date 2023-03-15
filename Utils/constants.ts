@@ -7,6 +7,8 @@ export const COLORS = {
   BLUE: '#334FFA',
   GRAY: '#9B9898',
   WHITE: '#FFFFFF',
+  GREEN: '#00B833',
+  RED: '#FF0000',
 };
 
 type NavigationParam = {
