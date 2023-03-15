@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, View, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {getProducts} from '../Services/Products';
 
 export const HomeScreen = (): JSX.Element => {
   type NavigationParam = {
@@ -9,14 +8,6 @@ export const HomeScreen = (): JSX.Element => {
   };
 
   const navigation = useNavigation<NavigationParam>();
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const response = getProducts();
-      setProducts(await response);
-    })();
-  }, []);
 
   return (
     <View>
@@ -25,7 +16,6 @@ export const HomeScreen = (): JSX.Element => {
         title="Go to About"
         onPress={() => navigation.navigate('About')}
       />
-      <Text>{JSON.stringify(products)}</Text>
     </View>
   );
 };
