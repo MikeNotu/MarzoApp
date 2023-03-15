@@ -1,8 +1,7 @@
-import {SET_NAME, SET_AGE} from './actions';
+import {SET_ACTION} from './actions';
 
 const initialState = {
-  name: '',
-  age: 0,
+  action: 'Todos',
 };
 
 export function userReducer(
@@ -10,10 +9,8 @@ export function userReducer(
   action: {type: string; payload: string},
 ) {
   switch (action.type) {
-    case SET_NAME:
-      return {...state, name: action.payload};
-    case SET_AGE:
-      return {...state, age: action.payload};
+    case SET_ACTION:
+      return {...state, action: action.payload};
     default:
       return state;
   }

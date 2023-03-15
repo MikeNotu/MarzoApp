@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {setName} from '../redux/actions';
+import {setAction} from '../redux/actions';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 
 export const HomeScreen = (): JSX.Element => {
@@ -11,7 +11,7 @@ export const HomeScreen = (): JSX.Element => {
 
   const navigation = useNavigation<NavigationParam>();
 
-  const {name} = useAppSelector(state => state.userReducer);
+  const {action} = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
 
   return (
@@ -22,13 +22,24 @@ export const HomeScreen = (): JSX.Element => {
         onPress={() => navigation.navigate('About')}
       />
       <Button
-        title="ChangeName"
+        title="Canjeados"
         onPress={() => {
-          const test: String = String(Date.now());
-          dispatch(setName(test) as never);
+          dispatch(setAction('Canjeados') as never);
         }}
       />
-      <Text>{name}</Text>
+      <Button
+        title="Ganados"
+        onPress={() => {
+          dispatch(setAction('Ganados') as never);
+        }}
+      />
+      <Button
+        title="Todos"
+        onPress={() => {
+          dispatch(setAction('Todos') as never);
+        }}
+      />
+      <Text>{action}</Text>
     </View>
   );
 };
