@@ -1,17 +1,12 @@
 import React from 'react';
-import {Text, View, Button} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View} from 'react-native';
+import {Bienvenido} from '../components/Bienvenido';
 
-export function AboutScreen(): JSX.Element {
-  type NavigationParam = {
-    navigate: (route: string) => void;
-  };
-
-  const navigation = useNavigation<NavigationParam>();
+export const AboutScreen = (): JSX.Element => {
   return (
     <View>
-      <Text>About</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Bienvenido firstName="Ruben" lastName="Rodriguez" />
+      {/* <View style={{backgroundColor: 'red', width: 394, height: 770}} /> */}
     </View>
   );
-}
+};
