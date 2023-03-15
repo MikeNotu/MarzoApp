@@ -1,45 +1,21 @@
 import React from 'react';
-import {Text, View, Button} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {setAction} from '../redux/actions';
-import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {View} from 'react-native';
+import {Bienvenido} from '../components/Bienvenido';
+import {CustomText} from '../components/CustomText';
+import {COLORS} from '../utils/constants';
 
 export const HomeScreen = (): JSX.Element => {
-  type NavigationParam = {
-    navigate: (route: string) => void;
-  };
-
-  const navigation = useNavigation<NavigationParam>();
-
-  const {action} = useAppSelector(state => state.userReducer);
-  const dispatch = useAppDispatch();
-
   return (
     <View>
-      <Text>Home</Text>
-      <Button
-        title="Go to About"
-        onPress={() => navigation.navigate('About')}
+      <Bienvenido firstName="Ruben" lastName="Rodriguez" />
+      <CustomText
+        content={'TUS PUNTOS'}
+        size={14}
+        weight={'800'}
+        color={COLORS.GRAY}
+        marginTop={20}
+        marginLeft={20}
       />
-      <Button
-        title="Canjeados"
-        onPress={() => {
-          dispatch(setAction('Canjeados') as never);
-        }}
-      />
-      <Button
-        title="Ganados"
-        onPress={() => {
-          dispatch(setAction('Ganados') as never);
-        }}
-      />
-      <Button
-        title="Todos"
-        onPress={() => {
-          dispatch(setAction('Todos') as never);
-        }}
-      />
-      <Text>{action}</Text>
     </View>
   );
 };
