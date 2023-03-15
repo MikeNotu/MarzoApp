@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Bienvenido} from '../components/Bienvenido';
 
-export const AboutScreen = (): JSX.Element => {
+export const DetailsScreen = (): JSX.Element => {
   return (
     <View>
       <Bienvenido firstName="Ruben" lastName="Rodriguez" />
