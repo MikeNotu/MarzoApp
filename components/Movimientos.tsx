@@ -103,7 +103,7 @@ export const Movimientos = (): JSX.Element => {
             image,
             is_redemption,
             id,
-          }) as never,
+          }),
         );
 
         navigation.navigate('Details');
