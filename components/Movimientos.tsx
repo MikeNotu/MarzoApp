@@ -3,25 +3,16 @@ import {
   StyleSheet,
   View,
   Image,
-  ScrollView,
   SafeAreaView,
   FlatList,
   StatusBar,
-  Text,
 } from 'react-native';
+import {getImage} from '../services/Images';
 import {getProducts} from '../services/Products';
-import {COLORS} from '../utils/constants';
+import {COLORS, months} from '../utils/constants';
 import {CustomText} from './CustomText';
 
 export const Movimientos = (): JSX.Element => {
-//   interface DataType {
-//     createdAt: string;
-//     product: string;
-//     points: number;
-//     image: string;
-//     is_redemption: false;
-//     id: 0;
-//   }
   type ItemProps = {
     createdAt: string;
     product: string;
@@ -34,19 +25,50 @@ export const Movimientos = (): JSX.Element => {
   const [products, setProducts] = useState<Array<ItemProps>>([]);
 
   useEffect(() => {
-    (async () => {
-      const response = getProducts();
-      setProducts(await response);
-    })();
+    // let final: ItemProps[];
+    // (async () => {
+    //   const response = getProducts();
+    //   //   setProducts(await response);
+    //   final = await response;
+    //   console.log('final>>final');
+    //   console.log(final);
+    // })();
+
+    // if((response.ok){
+
+    // })
+
+    // setProducts(final);
+    getProducts().then(res => {
+      let newRes = res;
+      newRes.length = 50;
+      for (let i = 0; i < newRes.length; i++) {
+        getImage(newRes[i].image).then(resp => {
+          if (resp !== null) {
+            newRes[i].image = resp.url;
+          }
+        });
+
+        const firstSplit = newRes[i].createdAt.split('-');
+        const secondSplit = firstSplit[2].split('T');
+
+        const mes = String(months[firstSplit[1]]);
+
+        const fecha = `${secondSplit[0]} de ${mes}, ${firstSplit[0]}`;
+        newRes[i].createdAt = fecha;
+      }
+      setProducts(newRes);
+    });
   }, []);
 
-  // const Item = ({title}: ItemProps) => (
-  //   <View style={styles.item}>
-  //     <Text style={styles.title}>{title}</Text>
-  //   </View>
-  // );
-
-  const Item = ({points, is_redemption}: ItemProps) => (
+  const Item = ({
+    createdAt,
+    product,
+    points,
+    image,
+    is_redemption,
+    id,
+  }: ItemProps) => (
     <View
       style={{
         width: 333,
@@ -56,10 +78,21 @@ export const Movimientos = (): JSX.Element => {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      <Image
+      {/* <Image
         style={{height: 55, width: 55}}
         source={require('../media/Placeholder.png')}
+      /> */}
+
+      <Image
+        style={{
+          width: 55,
+          height: 55,
+        }}
+        source={{
+          uri: String(image),
+        }}
       />
+
       <View
         style={{
           height: 55,
@@ -68,13 +101,13 @@ export const Movimientos = (): JSX.Element => {
           justifyContent: 'space-around',
         }}>
         <CustomText
-          content={String(points)}
+          content={String(product)}
           size={14}
           weight={'800'}
           color={COLORS.TRUE_BLACK}
         />
         <CustomText
-          content={'26 de enero, 2019'}
+          content={createdAt}
           size={12}
           weight={'400'}
           color={COLORS.TRUE_BLACK}
@@ -82,7 +115,6 @@ export const Movimientos = (): JSX.Element => {
       </View>
       <View
         style={{
-          // marginLeft: 11,
           height: 55,
           width: 80,
           justifyContent: 'flex-end',
@@ -99,7 +131,6 @@ export const Movimientos = (): JSX.Element => {
       </View>
       <View
         style={{
-          // marginLeft: 11,
           height: 55,
           width: 24,
           justifyContent: 'center',
@@ -127,7 +158,6 @@ export const Movimientos = (): JSX.Element => {
             id={item.id}
           />
         )}
-        keyExtractor={item => item.id}
       />
     </SafeAreaView>
   );
