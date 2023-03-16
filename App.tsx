@@ -10,7 +10,7 @@ import {Store} from './redux/store';
 function App(): JSX.Element {
   type RootStackParamList = {
     Home: object;
-    About: object;
+    Details: object;
   };
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,7 +23,7 @@ function App(): JSX.Element {
             headerShown: false,
           }}>
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="About" component={DetailsScreen} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

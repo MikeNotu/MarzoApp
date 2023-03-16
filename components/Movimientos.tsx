@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
@@ -5,11 +6,12 @@ import {
   Image,
   SafeAreaView,
   FlatList,
-  StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import {getImage} from '../services/Images';
 import {getProducts} from '../services/Products';
 import {COLORS, months} from '../utils/constants';
+import {useAppSelector} from '../utils/hooks';
 import {CustomText} from './CustomText';
 
 export const Movimientos = (): JSX.Element => {
@@ -22,26 +24,38 @@ export const Movimientos = (): JSX.Element => {
     id: number;
   };
 
+  type NavigationParam = {
+    navigate: (route: string) => void;
+  };
+
   const [products, setProducts] = useState<Array<ItemProps>>([]);
+  const navigation = useNavigation<NavigationParam>();
+  const {action} = useAppSelector(state => state.userReducer);
 
   useEffect(() => {
-    // let final: ItemProps[];
-    // (async () => {
-    //   const response = getProducts();
-    //   //   setProducts(await response);
-    //   final = await response;
-    //   console.log('final>>final');
-    //   console.log(final);
-    // })();
-
-    // if((response.ok){
-
-    // })
-
-    // setProducts(final);
     getProducts().then(res => {
       let newRes = res;
       newRes.length = 50;
+
+      if (action === 'Canjeados') {
+        let filteredRes: ItemProps[] = [];
+        for (let i = 0; i < newRes.length; i++) {
+          if (newRes[i].is_redemption === true) {
+            filteredRes = [...filteredRes, newRes[i]];
+          }
+        }
+        newRes = filteredRes;
+      }
+
+      if (action === 'Ganados') {
+        let filteredRes: ItemProps[] = [];
+        for (let i = 0; i < newRes.length; i++) {
+          if (newRes[i].is_redemption === false) {
+            filteredRes = [...filteredRes, newRes[i]];
+          }
+        }
+        newRes = filteredRes;
+      }
       for (let i = 0; i < newRes.length; i++) {
         getImage(newRes[i].image).then(resp => {
           if (resp !== null) {
@@ -59,7 +73,7 @@ export const Movimientos = (): JSX.Element => {
       }
       setProducts(newRes);
     });
-  }, []);
+  }, [action]);
 
   const Item = ({
     createdAt,
@@ -69,7 +83,7 @@ export const Movimientos = (): JSX.Element => {
     is_redemption,
     id,
   }: ItemProps) => (
-    <View
+    <TouchableOpacity
       style={{
         width: 333,
         height: 55,
@@ -77,12 +91,10 @@ export const Movimientos = (): JSX.Element => {
         marginTop: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
+      }}
+      onPress={() => {
+        navigation.navigate('Details');
       }}>
-      {/* <Image
-        style={{height: 55, width: 55}}
-        source={require('../media/Placeholder.png')}
-      /> */}
-
       <Image
         style={{
           width: 55,
@@ -141,11 +153,11 @@ export const Movimientos = (): JSX.Element => {
           source={require('../media/Arrow.png')}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={products}
         renderItem={({item}) => (
@@ -165,16 +177,6 @@ export const Movimientos = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
+    height: 320,
   },
 });
