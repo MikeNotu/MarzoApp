@@ -8,10 +8,11 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import {setMovimiento} from '../redux/actions';
 import {getImage} from '../services/Images';
 import {getProducts} from '../services/Products';
 import {COLORS, months} from '../utils/constants';
-import {useAppSelector} from '../utils/hooks';
+import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import {CustomText} from './CustomText';
 
 export const Movimientos = (): JSX.Element => {
@@ -31,6 +32,8 @@ export const Movimientos = (): JSX.Element => {
   const [products, setProducts] = useState<Array<ItemProps>>([]);
   const navigation = useNavigation<NavigationParam>();
   const {action} = useAppSelector(state => state.userReducer);
+  const dispatch = useAppDispatch();
+
 
   useEffect(() => {
     getProducts().then(res => {
@@ -93,6 +96,8 @@ export const Movimientos = (): JSX.Element => {
         justifyContent: 'space-between',
       }}
       onPress={() => {
+        dispatch(setMovimiento(product) as never);
+
         navigation.navigate('Details');
       }}>
       <Image

@@ -1,8 +1,7 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {setAction} from '../redux/actions';
-import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import {useAppSelector} from '../utils/hooks';
 
 export const DetailsScreen = (): JSX.Element => {
   type NavigationParam = {
@@ -11,35 +10,17 @@ export const DetailsScreen = (): JSX.Element => {
 
   const navigation = useNavigation<NavigationParam>();
 
-  const {action} = useAppSelector(state => state.userReducer);
-  const dispatch = useAppDispatch();
+  const {product} = useAppSelector(state => state.userReducer);
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text style={{fontSize: 120}}>{JSON.stringify(product)}</Text>
       <Button
-        title="Go to About"
-        onPress={() => navigation.navigate('About')}
-      />
-      <Button
-        title="Canjeados"
+      title='return'
         onPress={() => {
-          dispatch(setAction('Canjeados') as never);
+          navigation.navigate('Home');
         }}
       />
-      <Button
-        title="Ganados"
-        onPress={() => {
-          dispatch(setAction('Ganados') as never);
-        }}
-      />
-      <Button
-        title="Todos"
-        onPress={() => {
-          dispatch(setAction('Todos') as never);
-        }}
-      />
-      <Text>{action}</Text>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Bienvenido} from '../components/Bienvenido';
 import {CustomText} from '../components/CustomText';
 import {Movimientos} from '../components/Movimientos';
