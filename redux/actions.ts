@@ -11,10 +11,10 @@ export const setAction = (name: String) => (dispatch: Dispatch) => {
   return;
 };
 
-export const setMovimiento = (product: Number) => (dispatch: Dispatch) => {
+export const setMovimiento = (movimiento: Object) => (dispatch: Dispatch) => {
   dispatch({
     type: SET_MOVIMIENTO,
-    payload: product,
+    payload: movimiento,
   });
   return;
 };

@@ -2,7 +2,14 @@ import {SET_ACTION, SET_MOVIMIENTO} from './actions';
 
 const initialState = {
   action: 'Todos',
-  product: '',
+  movimiento: {
+    createdAt: '',
+    product: '',
+    points: 0,
+    image: '',
+    is_redemption: false,
+    id: 0,
+  },
 };
 
 export function userReducer(
@@ -13,7 +20,7 @@ export function userReducer(
     case SET_ACTION:
       return {...state, action: action.payload};
     case SET_MOVIMIENTO:
-      return {...state, product: action.payload};
+      return {...state, movimiento: action.payload};
     default:
       return state;
   }

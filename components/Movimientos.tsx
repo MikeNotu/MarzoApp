@@ -34,7 +34,6 @@ export const Movimientos = (): JSX.Element => {
   const {action} = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
 
-
   useEffect(() => {
     getProducts().then(res => {
       let newRes = res;
@@ -96,7 +95,16 @@ export const Movimientos = (): JSX.Element => {
         justifyContent: 'space-between',
       }}
       onPress={() => {
-        dispatch(setMovimiento(product) as never);
+        dispatch(
+          setMovimiento({
+            createdAt,
+            product,
+            points,
+            image,
+            is_redemption,
+            id,
+          }) as never,
+        );
 
         navigation.navigate('Details');
       }}>

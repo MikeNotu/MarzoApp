@@ -10,11 +10,11 @@ export const DetailsScreen = (): JSX.Element => {
 
   const navigation = useNavigation<NavigationParam>();
 
-  const {product} = useAppSelector(state => state.userReducer);
+  const {movimiento} = useAppSelector(state => state.userReducer);
 
   return (
     <View>
-      <Text style={{fontSize: 120}}>{JSON.stringify(product)}</Text>
+      <Text style={{fontSize: 12}}>{JSON.stringify(movimiento)}</Text>
       <Button
       title='return'
         onPress={() => {
