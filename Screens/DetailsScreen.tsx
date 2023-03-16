@@ -1,45 +1,138 @@
-import React from 'react';
-import {Text, View, Button} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View, Button, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {setAction} from '../redux/actions';
-import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import {useAppSelector} from '../utils/hooks';
+import {COLORS} from '../utils/constants';
+import {CustomText} from '../components/CustomText';
 
 export const DetailsScreen = (): JSX.Element => {
   type NavigationParam = {
     navigate: (route: string) => void;
   };
+  type ItemProps = {
+    createdAt: string;
+    product: string;
+    points: number;
+    image: string;
+    is_redemption: boolean;
+    id: number;
+  };
 
   const navigation = useNavigation<NavigationParam>();
 
-  const {action} = useAppSelector(state => state.userReducer);
-  const dispatch = useAppDispatch();
+  const {movimiento} = useAppSelector(state => state.userReducer);
+
+  const [state, setState] = useState<ItemProps>({
+    createdAt: '',
+    product: '',
+    points: 0,
+    image: ',',
+    is_redemption: false,
+    id: 0,
+  });
+
+  useEffect(() => {
+    setState(movimiento);
+  }, []);
 
   return (
     <View>
-      <Text>Home</Text>
-      <Button
-        title="Go to About"
-        onPress={() => navigation.navigate('About')}
+      <View style={styles.header}>
+        <CustomText
+          content={'product' in state ? state.product : ''}
+          size={24}
+          color={COLORS.TRUE_BLACK}
+          weight="800"
+          marginTop={60}
+          marginLeft={20}
+        />
+      </View>
+      <View>
+        <Image
+          style={{
+            width: 350,
+            height: 350,
+            alignSelf: 'center',
+            marginTop: 20,
+            borderRadius: 10,
+          }}
+          source={{
+            uri: String('product' in state ? state.image : ''),
+          }}
+        />
+      </View>
+      <CustomText
+        content={'Detalles de producto:'}
+        marginTop={32}
+        marginLeft={20}
+        color={COLORS.GRAY}
+        weight="800"
+        size={14}
       />
+      <CustomText
+        content={'Comprado el'}
+        marginTop={20}
+        marginLeft={20}
+        color={COLORS.TRUE_BLACK}
+        weight="800"
+        size={16}
+      />
+      <CustomText
+        content={'Con esta compra acumulaste:'}
+        marginTop={20}
+        marginLeft={20}
+        color={COLORS.GRAY}
+        weight="800"
+        size={14}
+      />
+      <CustomText
+        content={'product' in state ? `${String(state.points)} puntos` : ''}
+        marginTop={20}
+        marginLeft={20}
+        color={COLORS.TRUE_BLACK}
+        weight="800"
+        size={24}
+      />
+
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.longButton}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <CustomText
+            content={'Aceptar'}
+            size={16}
+            weight={'800'}
+            color={COLORS.WHITE}
+            alignSelf={'center'}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* <Text style={{fontSize: 12}}>{JSON.stringify(movimiento)}</Text>
       <Button
-        title="Canjeados"
+        title="return"
         onPress={() => {
-          dispatch(setAction('Canjeados') as never);
+          
         }}
-      />
-      <Button
-        title="Ganados"
-        onPress={() => {
-          dispatch(setAction('Ganados') as never);
-        }}
-      />
-      <Button
-        title="Todos"
-        onPress={() => {
-          dispatch(setAction('Todos') as never);
-        }}
-      />
-      <Text>{action}</Text>
+      /> */}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  footer: {
+    height: 147,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  longButton: {
+    height: 50,
+    width: 353,
+    alignSelf: 'center',
+    backgroundColor: COLORS.BLUE,
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+});
