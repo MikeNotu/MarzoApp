@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Bienvenido} from '../components/Bienvenido';
 import {CustomText} from '../components/CustomText';
-import { Movimientos } from '../components/Movimientos';
+import {Movimientos} from '../components/Movimientos';
 import {Points} from '../components/Points';
+import {setAction} from '../redux/actions';
 import {getProducts} from '../services/Products';
 import {COLORS} from '../utils/constants';
+import {useAppDispatch, useAppSelector} from '../utils/hooks';
 
 export const HomeScreen = (): JSX.Element => {
   const [products, setProducts] = useState([
@@ -43,6 +45,10 @@ export const HomeScreen = (): JSX.Element => {
       setTotalPoints(total);
     }
   }, [products]);
+
+  const {action} = useAppSelector(state => state.userReducer);
+  const dispatch = useAppDispatch();
+
   return (
     <View>
       <Bienvenido firstName="Ruben" lastName="Rodriguez" />
@@ -63,7 +69,77 @@ export const HomeScreen = (): JSX.Element => {
         marginTop={20}
         marginLeft={20}
       />
-      <Movimientos/>
+      <Movimientos />
+      {action === 'Todos' ? (
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              dispatch(setAction('Ganados') as never);
+            }}>
+            <CustomText
+              content={'Ganados'}
+              size={12}
+              weight={'800'}
+              color={COLORS.WHITE}
+              alignSelf={'center'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              dispatch(setAction('Canjeados') as never);
+            }}>
+            <CustomText
+              content={'Canjeados'}
+              size={12}
+              weight={'800'}
+              color={COLORS.WHITE}
+              alignSelf={'center'}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.longButton}
+            onPress={() => {
+              dispatch(setAction('Todos') as never);
+            }}>
+            <CustomText
+              content={'Todos'}
+              size={16}
+              weight={'800'}
+              color={COLORS.WHITE}
+              alignSelf={'center'}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  footer: {
+    height: 147,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  button: {
+    height: 50,
+    width: 170,
+    alignSelf: 'center',
+    backgroundColor: COLORS.BLUE,
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  longButton: {
+    height: 50,
+    width: 353,
+    alignSelf: 'center',
+    backgroundColor: COLORS.BLUE,
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+});
