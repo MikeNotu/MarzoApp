@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, ColorValue} from 'react-native';
-// type CustomTextProps = {};
+import {COLORS} from '../utils/constants';
 
 interface ComponentText {
   content: String;
@@ -28,6 +28,7 @@ interface ComponentText {
     | 'space-around'
     | 'space-between'
     | 'space-evenly';
+  is_redemption?: boolean;
 }
 
 export const CustomText = ({
@@ -43,6 +44,7 @@ export const CustomText = ({
   alignSelf,
   justifyContent,
   top,
+  is_redemption,
 }: ComponentText): JSX.Element => {
   const styles = StyleSheet.create({
     customFont: {
@@ -60,7 +62,22 @@ export const CustomText = ({
         justifyContent !== undefined ? justifyContent : 'flex-start',
       top: top !== undefined ? top : 'auto',
     },
+    positive: {
+      color: COLORS.GREEN,
+    },
+    negative: {
+      color: COLORS.RED,
+    },
   });
 
-  return <Text style={styles.customFont}>{content}</Text>;
+  return (
+    <Text style={styles.customFont}>
+      {is_redemption === true ? (
+        <Text style={styles.negative}>-</Text>
+      ) : is_redemption === false ? (
+        <Text style={styles.positive}>+</Text>
+      ) : null}
+      {content}
+    </Text>
+  );
 };

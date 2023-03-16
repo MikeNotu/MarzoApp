@@ -22,7 +22,7 @@ export const Bienvenido = ({firstName, lastName}: PersonData): JSX.Element => {
           size={16}
           weight={'400'}
           color={COLORS.BLACK}
-          marginTop={-5}
+          marginTop={-2}
         />
       </View>
     </View>

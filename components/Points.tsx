@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-// import {Shadow} from 'react-native-shadow-2';
+import {StyleSheet} from 'react-native';
 import {formatPoints} from '../utils/common';
 import {COLORS, PossibleMonths} from '../utils/constants';
 import {CustomText} from './CustomText';
@@ -14,7 +13,6 @@ interface ComponentData {
 export const Points = ({month, points}: ComponentData): JSX.Element => {
   return (
     <Card style={styles.Block}>
-      {/* <View style={styles.Element}> */}
       <CustomText
         content={month}
         size={16}
@@ -35,7 +33,6 @@ export const Points = ({month, points}: ComponentData): JSX.Element => {
         alignSelf="center"
         position="absolute"
       />
-      {/* </View> */}
     </Card>
   );
 };
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BLUE,
     height: 143,
     width: 286,
-    shadowColor: 'black',
+    shadowColor: COLORS.TRUE_BLACK,
     elevation: 12,
     borderRadius: 20,
     alignSelf: 'center',
