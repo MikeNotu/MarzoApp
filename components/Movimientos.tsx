@@ -121,13 +121,7 @@ export const Movimientos = (): JSX.Element => {
           color={COLORS.TRUE_BLACK}
         />
       </View>
-      <View
-        style={{
-          height: 55,
-          width: 80,
-          justifyContent: 'flex-end',
-          flexDirection: 'row',
-        }}>
+      <View style={styles.points}>
         <CustomText
           is_redemption={is_redemption}
           content={String(points)}
@@ -138,10 +132,7 @@ export const Movimientos = (): JSX.Element => {
         />
       </View>
       <View style={styles.arrow}>
-        <Image
-          style={{height: 12, width: 12, alignSelf: 'flex-end'}}
-          source={require('../media/Arrow.png')}
-        />
+        <Image style={styles.icon} source={require('../media/Arrow.png')} />
       </View>
     </TouchableOpacity>
   );
@@ -207,8 +198,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  icon: {
+    height: 12,
+    width: 12,
+    alignSelf: 'flex-end',
+  },
   spinner: {
     alignSelf: 'center',
     height: 320,
+  },
+  points: {
+    height: 55,
+    width: 80,
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
   },
 });
