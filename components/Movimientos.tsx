@@ -69,6 +69,26 @@ export const Movimientos = (): JSX.Element => {
     });
   }, [action]);
 
+  const move = (
+    createdAt: string,
+    product: string,
+    points: number,
+    image: string,
+    is_redemption: boolean,
+    id: number,
+  ) => {
+    dispatch(
+      setMovimiento({
+        createdAt,
+        product,
+        points,
+        image,
+        is_redemption,
+        id,
+      }) as never,
+    );
+  };
+
   const Item = ({
     createdAt,
     product,
@@ -80,16 +100,7 @@ export const Movimientos = (): JSX.Element => {
     <TouchableOpacity
       style={styles.elemento}
       onPress={() => {
-        dispatch(
-          setMovimiento({
-            createdAt,
-            product,
-            points,
-            image,
-            is_redemption,
-            id,
-          }),
-        );
+        move(createdAt, product, points, image, is_redemption, id);
         navigation.navigate('Details');
       }}>
       <Image

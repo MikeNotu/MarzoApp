@@ -13,7 +13,7 @@ export const COLORS = {
   TURQUOISE: '#40E0D0',
 };
 
-export const months = {
+export const months: {[key: string]: string} = {
   '01': 'enero',
   '02': 'febrero',
   '03': 'marzo',
