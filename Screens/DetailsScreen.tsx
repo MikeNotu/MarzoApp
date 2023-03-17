@@ -2,19 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../utils/hooks';
-import {COLORS, NavigationParam} from '../utils/constants';
+import {COLORS} from '../utils/constants';
 import {CustomText} from '../components/CustomText';
+import {ItemProps, NavigationParam} from '../utils/common';
 
 export const DetailsScreen = (): JSX.Element => {
-  type ItemProps = {
-    createdAt: string;
-    product: string;
-    points: number;
-    image: string;
-    is_redemption: boolean;
-    id: number;
-  };
-
   const navigation = useNavigation<NavigationParam>();
 
   const {movimiento} = useAppSelector(state => state.userReducer);

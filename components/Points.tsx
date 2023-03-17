@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {formatPoints} from '../utils/common';
-import {COLORS, PossibleMonths} from '../utils/constants';
+import {formatPoints, PossibleMonths} from '../utils/common';
+import {COLORS} from '../utils/constants';
 import {CustomText} from './CustomText';
 import {Card} from 'react-native-shadow-cards';
 

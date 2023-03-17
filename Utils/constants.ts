@@ -13,24 +13,6 @@ export const COLORS = {
   TURQUOISE: '#40E0D0',
 };
 
-export type NavigationParam = {
-  navigate: (route: string) => void;
-};
-
-export type PossibleMonths =
-  | 'Enero'
-  | 'Febrero'
-  | 'Marzo'
-  | 'Abril'
-  | 'Mayo'
-  | 'Junio'
-  | 'Julio'
-  | 'Agosto'
-  | 'Septiembre'
-  | 'Octubre'
-  | 'Noviembre'
-  | 'Diciembre';
-
 export const months = {
   '01': 'enero',
   '02': 'febrero',

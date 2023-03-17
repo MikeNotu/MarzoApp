@@ -12,20 +12,12 @@ import {
 import {setMovimiento} from '../redux/actions';
 import {getImage} from '../services/Images';
 import {getProducts} from '../services/Products';
-import {COLORS, months, NavigationParam} from '../utils/constants';
+import {ItemProps, NavigationParam} from '../utils/common';
+import {COLORS, months} from '../utils/constants';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import {CustomText} from './CustomText';
 
 export const Movimientos = (): JSX.Element => {
-  type ItemProps = {
-    createdAt: string;
-    product: string;
-    points: number;
-    image: string;
-    is_redemption: boolean;
-    id: number;
-  };
-
   const [products, setProducts] = useState<Array<ItemProps>>([]);
   const [loading, setLoading] = useState<Boolean>(false);
   const navigation = useNavigation<NavigationParam>();
