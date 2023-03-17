@@ -11,7 +11,7 @@ import {
 import {setMovimiento} from '../redux/actions';
 import {getImage} from '../services/Images';
 import {getProducts} from '../services/Products';
-import {COLORS, months} from '../utils/constants';
+import {COLORS, months, NavigationParam} from '../utils/constants';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import {CustomText} from './CustomText';
 
@@ -23,10 +23,6 @@ export const Movimientos = (): JSX.Element => {
     image: string;
     is_redemption: boolean;
     id: number;
-  };
-
-  type NavigationParam = {
-    navigate: (route: string) => void;
   };
 
   const [products, setProducts] = useState<Array<ItemProps>>([]);
@@ -86,14 +82,7 @@ export const Movimientos = (): JSX.Element => {
     id,
   }: ItemProps) => (
     <TouchableOpacity
-      style={{
-        width: 333,
-        height: 55,
-        alignSelf: 'center',
-        marginTop: 8,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      }}
+      style={styles.elemento}
       onPress={() => {
         dispatch(
           setMovimiento({
@@ -105,26 +94,16 @@ export const Movimientos = (): JSX.Element => {
             id,
           }),
         );
-
         navigation.navigate('Details');
       }}>
       <Image
-        style={{
-          width: 55,
-          height: 55,
-        }}
+        style={styles.image}
         source={{
           uri: String(image),
         }}
       />
 
-      <View
-        style={{
-          height: 55,
-          width: 144,
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-        }}>
+      <View style={styles.description}>
         <CustomText
           content={String(product)}
           size={14}
@@ -154,13 +133,7 @@ export const Movimientos = (): JSX.Element => {
           alignSelf={'center'}
         />
       </View>
-      <View
-        style={{
-          height: 55,
-          width: 24,
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}>
+      <View style={styles.arrow}>
         <Image
           style={{height: 12, width: 12, alignSelf: 'flex-end'}}
           source={require('../media/Arrow.png')}
@@ -191,5 +164,29 @@ export const Movimientos = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     height: 320,
+  },
+  elemento: {
+    width: 333,
+    height: 55,
+    alignSelf: 'center',
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  image: {
+    width: 55,
+    height: 55,
+  },
+  description: {
+    height: 55,
+    width: 144,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  arrow: {
+    height: 55,
+    width: 24,
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 });

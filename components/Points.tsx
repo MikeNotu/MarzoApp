@@ -24,7 +24,6 @@ export const Points = ({month, points}: ComponentData): JSX.Element => {
         position="absolute"
         top={0}
       />
-
       <CustomText
         content={`${formatPoints(points)} pts`}
         size={32}

@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Button, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../utils/hooks';
-import {COLORS} from '../utils/constants';
+import {COLORS, NavigationParam} from '../utils/constants';
 import {CustomText} from '../components/CustomText';
 
 export const DetailsScreen = (): JSX.Element => {
-  type NavigationParam = {
-    navigate: (route: string) => void;
-  };
   type ItemProps = {
     createdAt: string;
     product: string;
@@ -33,11 +30,11 @@ export const DetailsScreen = (): JSX.Element => {
 
   useEffect(() => {
     setState(movimiento);
-  }, []);
+  }, [movimiento]);
 
   return (
     <View>
-      <View style={styles.header}>
+      <View>
         <CustomText
           content={'product' in state ? state.product : ''}
           size={24}
@@ -49,13 +46,7 @@ export const DetailsScreen = (): JSX.Element => {
       </View>
       <View>
         <Image
-          style={{
-            width: 350,
-            height: 350,
-            alignSelf: 'center',
-            marginTop: 20,
-            borderRadius: 10,
-          }}
+          style={styles.image}
           source={{
             uri: String('product' in state ? state.image : ''),
           }}
@@ -109,14 +100,6 @@ export const DetailsScreen = (): JSX.Element => {
           />
         </TouchableOpacity>
       </View>
-
-      {/* <Text style={{fontSize: 12}}>{JSON.stringify(movimiento)}</Text>
-      <Button
-        title="return"
-        onPress={() => {
-          
-        }}
-      /> */}
     </View>
   );
 };
@@ -133,6 +116,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: COLORS.BLUE,
     justifyContent: 'center',
+    borderRadius: 10,
+  },
+  image: {
+    width: 350,
+    height: 350,
+    alignSelf: 'center',
+    marginTop: 20,
     borderRadius: 10,
   },
 });

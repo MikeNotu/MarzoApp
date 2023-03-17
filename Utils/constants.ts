@@ -12,7 +12,7 @@ export const COLORS = {
   PINK: '#CFD6FF',
 };
 
-type NavigationParam = {
+export type NavigationParam = {
   navigate: (route: string) => void;
 };
 
