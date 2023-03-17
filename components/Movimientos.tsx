@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {setMovimiento} from '../redux/actions';
 import {getImage} from '../services/Images';
@@ -26,11 +27,13 @@ export const Movimientos = (): JSX.Element => {
   };
 
   const [products, setProducts] = useState<Array<ItemProps>>([]);
+  const [loading, setLoading] = useState<Boolean>(false);
   const navigation = useNavigation<NavigationParam>();
   const {action} = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    setLoading(true);
     getProducts().then(res => {
       let newRes = res;
       newRes.length = 50;
@@ -70,6 +73,7 @@ export const Movimientos = (): JSX.Element => {
         newRes[i].createdAt = fecha;
       }
       setProducts(newRes);
+      setLoading(false);
     });
   }, [action]);
 
@@ -144,19 +148,33 @@ export const Movimientos = (): JSX.Element => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={products}
-        renderItem={({item}) => (
-          <Item
-            createdAt={item.createdAt}
-            product={item.product}
-            points={item.points}
-            image={item.image}
-            is_redemption={item.is_redemption}
-            id={item.id}
-          />
-        )}
-      />
+      {loading ? (
+        <ActivityIndicator
+          size={150}
+          color={
+            action === 'Ganados'
+              ? COLORS.GREEN
+              : action === 'Canjeados'
+              ? COLORS.RED
+              : COLORS.TURQUOISE
+          }
+          style={styles.spinner}
+        />
+      ) : (
+        <FlatList
+          data={products}
+          renderItem={({item}) => (
+            <Item
+              createdAt={item.createdAt}
+              product={item.product}
+              points={item.points}
+              image={item.image}
+              is_redemption={item.is_redemption}
+              id={item.id}
+            />
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -188,5 +206,9 @@ const styles = StyleSheet.create({
     width: 24,
     justifyContent: 'center',
     flexDirection: 'column',
+  },
+  spinner: {
+    alignSelf: 'center',
+    height: 320,
   },
 });

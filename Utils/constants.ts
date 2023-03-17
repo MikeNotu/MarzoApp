@@ -10,6 +10,7 @@ export const COLORS = {
   GREEN: '#00B833',
   RED: '#FF0000',
   PINK: '#CFD6FF',
+  TURQUOISE: '#40E0D0',
 };
 
 export type NavigationParam = {
